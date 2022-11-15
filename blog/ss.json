@@ -1,0 +1,41 @@
+{
+	"Version": "2012-10-17",
+	"Id": "",
+	"Statement": [
+		{
+			"Sid": "Set permissions for objects",
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": [
+					"arn:aws-cn:iam::208892152133:role/service-role/s3crr_role_for_learn_3",
+					"arn:aws-cn:iam::208892152133:user/kail",
+					"arn:aws-cn:iam::208892152133:user/xu.han"
+				]
+			},
+			"Action": "s3:*",
+			"Resource": [
+				"arn:aws-cn:s3:::hanxunote",
+				"arn:aws-cn:s3:::hanxunote/*"
+			]
+		},
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws-cn:s3:::hanxunote/*"
+            ],
+            "Condition": {
+                "NotIpAddress": {
+                  "aws:SourceIp": [
+                    "123.123.45.138/32",
+                    "120.244.238.197/32"
+                  ]
+                }
+              }
+        }
+  ]
+}
